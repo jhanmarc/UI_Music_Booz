@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixi
 
   Widget _newMusic() {
     return Padding(
-      padding: EdgeInsets.only(right: 30.0, left: 35.0),
+      padding: EdgeInsets.only(right: 20.0, left: 30.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixi
 
   Widget _listNewMusic(){
     return Container(
-      height: 140,
+      height: 190,
       child: ListView.builder(
         itemCount: listNext.length,
         itemBuilder: (BuildContext context, int index){
@@ -299,7 +299,7 @@ class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixi
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          width: 180,
+                          width: 140,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
