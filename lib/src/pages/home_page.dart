@@ -1,3 +1,4 @@
+import 'package:booz/src/models/music.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -9,21 +10,42 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  String img = "https://images-na.ssl-images-amazon.com/images/I/71zibYlETiL._SX355_.jpg";
+class _HomePageState extends State<HomePage>  with SingleTickerProviderStateMixin { 
+
+  AnimationController playPauseController;
+
+  bool isSongPlay = false;
+
+  playSon(){
+    if(isSongPlay){
+      playPauseController.reverse();
+    }else{
+      playPauseController.forward();
+    }
+    isSongPlay = !isSongPlay;
+  }
+
+  @override
+  void initState() {
+    
+    super.initState();
+    playPauseController = AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF373C42),
         body: Column(
-          children: <Widget>[_navBar(), _consolaReproductor(), _newMusic()],
+          children: <Widget>[
+            _navBar(), _consolaReproductor(), _newMusic()],
         ));
   }
 
   Widget _navBar() {
     return Container(
       child: Padding(
-        padding: EdgeInsets.only(top: 50, bottom: 20),
+        padding: EdgeInsets.only(top: 50, bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -75,7 +97,7 @@ class _HomePageState extends State<HomePage> {
   Widget _consolaReproductor() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 430,
+      height: 440,
       width: double.maxFinite,
       child: Column(
         children: <Widget>[
@@ -122,8 +144,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black),
               ),
               CircleAvatar(
-                backgroundImage: NetworkImage(
-                    img),
+                backgroundImage: AssetImage('assets/images/linkinPark.jpg'),
                 maxRadius: 100,
               ),
               Container(
@@ -215,9 +236,16 @@ class _HomePageState extends State<HomePage> {
                 color: Color(0xFFA2A2A2), size: 17),
             onPressed: () {},
           ),
-          IconButton(
-            icon: Icon(FontAwesomeIcons.pause, size: 30),
-            onPressed: () {},
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: playSon,
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: playPauseController,
+                size: 40,
+              ),
+            ),
           ),
           IconButton(
             icon: Icon(FontAwesomeIcons.forward,
@@ -230,19 +258,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _newMusic() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("UP NEXT", style: TextStyle(color: Color(0xFFA2A2A2), fontSize: 13, letterSpacing: 2)),
-          SizedBox(height: 5),
-          Container(
-            height: 2,
-            width: 300,
-            color: Color(0xFFA2A2A2).withOpacity(0.3),
-          ),
-          // _listNewMusic()
-        ],
+    return Padding(
+      padding: EdgeInsets.only(right: 30.0, left: 35.0),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("UP NEXT", style: TextStyle(color: Color(0xFFA2A2A2), fontSize: 13, letterSpacing: 2)),
+            SizedBox(height: 5),
+            Divider(height: 2),
+            _listNewMusic()
+          ],
+        ),
+        
       ),
     );
   }
@@ -250,9 +278,48 @@ class _HomePageState extends State<HomePage> {
 
   Widget _listNewMusic(){
     return Container(
+      height: 140,
       child: ListView.builder(
-        itemBuilder: (context, i){
-          
+        itemCount: listNext.length,
+        itemBuilder: (BuildContext context, int index){
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 18),
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 29,
+                      backgroundImage: AssetImage(listNext[index].imageUrl),
+                    ),
+                    SizedBox(width: 18),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(listNext[index].cancion, style: TextStyle(fontSize: 15, letterSpacing: 0.5)),
+                              Text('${listNext[index].artista} • ${listNext[index].tiempo}' , style: TextStyle(fontSize: 13, color: Color(0xFFA2A2A2), letterSpacing: 0.8)),
+                            ],
+                          )
+                        )
+                      ],
+                    ),
+                    SizedBox(width: 42),
+                    IconButton(
+                      icon: Icon(FontAwesomeIcons.play, size: 20),
+                      onPressed: (){},
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
         },
       ),
     );
