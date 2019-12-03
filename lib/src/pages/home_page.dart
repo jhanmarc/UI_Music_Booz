@@ -10,17 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String img = "https://images-na.ssl-images-amazon.com/images/I/71zibYlETiL._SX355_.jpg";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF373C42),
+        backgroundColor: Color(0xFF373C42),
         body: Column(
-      children: <Widget>[
-        _navBar(),
-        _consolaReproductor(),
-        _newMusic()
-      ],
-    ));
+          children: <Widget>[_navBar(), _consolaReproductor(), _newMusic()],
+        ));
   }
 
   Widget _navBar() {
@@ -106,8 +103,8 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("3:50", style: TextStyle(color: Color(0xFFA2A2A2))),
-                    Text("0:00", style: TextStyle(color: Color(0xFFA2A2A2)))
+                    Text("0:00", style: TextStyle(color: Color(0xFFA2A2A2))),
+                    Text("3:50", style: TextStyle(color: Color(0xFFA2A2A2)))
                   ],
                 ),
               ),
@@ -126,7 +123,7 @@ class _HomePageState extends State<HomePage> {
               ),
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                    "https://images-na.ssl-images-amazon.com/images/I/71zibYlETiL._SX355_.jpg"),
+                    img),
                 maxRadius: 100,
               ),
               Container(
@@ -156,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: (){},
+                      onTap: () {},
                       child: Icon(FontAwesomeIcons.random,
                           size: 15, color: Color(0xFFDA2581)),
                     ),
@@ -176,7 +173,7 @@ class _HomePageState extends State<HomePage> {
     return SleekCircularSlider(
       min: 0,
       max: 100,
-      initialValue: 0,
+      initialValue: 100,
       onChange: (value) {},
       onChangeEnd: (value) {},
       onChangeStart: (value) {},
@@ -214,27 +211,50 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           IconButton(
-            icon: Icon(FontAwesomeIcons.backward, color: Color(0xFFA2A2A2), size: 17),
-            onPressed: (){},
+            icon: Icon(FontAwesomeIcons.backward,
+                color: Color(0xFFA2A2A2), size: 17),
+            onPressed: () {},
           ),
           IconButton(
             icon: Icon(FontAwesomeIcons.pause, size: 30),
-            onPressed: (){},
+            onPressed: () {},
           ),
           IconButton(
-            icon: Icon(FontAwesomeIcons.forward,color: Color(0xFFA2A2A2), size: 17),
-            onPressed: (){},
+            icon: Icon(FontAwesomeIcons.forward,
+                color: Color(0xFFA2A2A2), size: 17),
+            onPressed: () {},
           )
         ],
       ),
     );
   }
 
-  Widget _newMusic(){
+  Widget _newMusic() {
     return Container(
-      height: 200,
-      color: Colors.black45,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("UP NEXT", style: TextStyle(color: Color(0xFFA2A2A2), fontSize: 13, letterSpacing: 2)),
+          SizedBox(height: 5),
+          Container(
+            height: 2,
+            width: 300,
+            color: Color(0xFFA2A2A2).withOpacity(0.3),
+          ),
+          // _listNewMusic()
+        ],
+      ),
+    );
+  }
 
+
+  Widget _listNewMusic(){
+    return Container(
+      child: ListView.builder(
+        itemBuilder: (context, i){
+          
+        },
+      ),
     );
   }
 }
