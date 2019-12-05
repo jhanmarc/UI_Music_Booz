@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   
   bool isSongPlay = false;
 
-  AnimationController _animationController;
 
   @override
   void initState() {
