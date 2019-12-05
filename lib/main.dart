@@ -1,4 +1,5 @@
 import 'package:booz/src/pages/home_page.dart';
+import 'package:booz/src/pages/songs_list.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home',
       title: 'Flutter Demo',
       routes: {
-        'home' :  (BuildContext context) => HomePage()
+        'home' :  (BuildContext context) => SongsListPage()
       },
       
     );
