@@ -30,17 +30,17 @@ class _SongsListPageState extends State<SongsListPage> {
             width: mediaQueryW,
             child: Container(
               child: Padding(
-                padding: EdgeInsets.only(top: 35, left: 18, right: 18),
+                padding: EdgeInsets.only(top: 12, left: 12, right: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    iconsBar(Icons.menu),
+                    iconsBar(context, Icons.menu, 'play'),
                     Text("BooZ", style: stylelogo),
                     Container(
                       child: Row(
                         children: <Widget>[
-                          iconsBar(Icons.search),
-                          iconsBar(Icons.more_vert),
+                          iconsBar(context ,Icons.search, 'search'),
+                          iconsBar(context, Icons.more_vert, 'play'),
                         ],
                       ),
                     ),
@@ -99,7 +99,7 @@ class _SongsListPageState extends State<SongsListPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            iconsBar(Icons.menu),
+                            iconsBar(context, Icons.menu,'music'),
                           ],
                         ),
                       ),

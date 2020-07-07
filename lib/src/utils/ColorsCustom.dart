@@ -8,4 +8,5 @@ class ColorsCustom{
   static const Color Celeste = Color(0xFF78D7FE);
   static const Color BlueBlackBar = Color(0xFF21262C);
   static const Color BlueBlackCont = Color(0xFF23292F);
+  static const Color RosadoLigth = Color(0xFFDA2581);
 }

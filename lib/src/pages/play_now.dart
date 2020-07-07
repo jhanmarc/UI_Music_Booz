@@ -5,36 +5,48 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class HomePage extends StatefulWidget {
+import '../utils/ColorsCustom.dart';
+
+class PlayNowPage extends StatefulWidget {
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _PlayNowPageState createState() => _PlayNowPageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStateMixin {
   AnimationController playPauseController;
+  Animation<double> rotation;
   
   bool isSongPlay = false;
+  bool icono = true;
 
 
   @override
   void initState() {
     super.initState();
-    playPauseController = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    playPauseController = AnimationController(vsync: this, duration: Duration(milliseconds: 4000));
+    rotation = Tween( begin: 0.0, end: 2.0).animate(playPauseController);
   }
 
   playSon() {
-    if (isSongPlay) {
-      playPauseController.reverse();
-      
-    } else {
-      playPauseController.forward();    
-    }
-    isSongPlay = !isSongPlay;
+    setState(() {
+        if (isSongPlay) {
+        playPauseController.stop();
+        icono = true;
+        
+      } else {
+        playPauseController.repeat();  
+        icono = false;  
+      }
+      isSongPlay = !isSongPlay;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final double mediaQueryW = MediaQuery.of(context).size.width;
+
     return Scaffold(
         backgroundColor: Color(0xFF373C42),
         body: Column(
@@ -45,12 +57,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget _navBar() {
     return Container(
       child: Padding(
-        padding: EdgeInsets.only(top: 50, bottom: 10),
+        padding: EdgeInsets.only(top: 50, bottom: 10, left: 12, right: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             GestureDetector(
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, 'home'),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Color(0xFFA2A2A2),
@@ -125,8 +137,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("0:00", style: TextStyle(color: Color(0xFFA2A2A2))),
-                    Text("3:50", style: TextStyle(color: Color(0xFFA2A2A2)))
+                    Text("0:00", style: TextStyle(color: ColorsCustom.Gris)),
+                    Text("3:50", style: TextStyle(color: ColorsCustom.Gris))
                   ],
                 ),
               ),
@@ -188,7 +200,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           size: 15, color: Color(0xFFDA2581)),
                     ),
                     Icon(FontAwesomeIcons.redo,
-                        size: 15, color: Color(0xFFDA2581))
+                        size: 15, color: ColorsCustom.RosadoLigth)
                   ],
                 ),
               )
@@ -245,16 +257,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 color: Color(0xFFA2A2A2), size: 17),
             onPressed: () {},
           ),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: playSon,
-              child: AnimatedIcon(
-                icon: AnimatedIcons.play_pause,
-                progress: playPauseController,
-                size: 40,
-              ),
-            ),
+          IconButton(
+            icon: icono ? Icon(FontAwesomeIcons.play, color: Color(0xFFA2A2A2), size: 28) : Icon(FontAwesomeIcons.pause, color: Color(0xFFA2A2A2), size: 28),
+            onPressed: () => playSon(),
           ),
           IconButton(
             icon: Icon(FontAwesomeIcons.forward,
@@ -267,19 +272,21 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   Widget _newMusic() {
-    return Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 30.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("UP NEXT",
-                style: TextStyle(
-                    color: Color(0xFFA2A2A2), fontSize: 13, letterSpacing: 2)),
-            SizedBox(height: 5),
-            Divider(height: 2),
-            _listNewMusic()
-          ],
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.only(right: 20.0, left: 30.0),
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text("UP NEXT",
+                  style: TextStyle(
+                      color: Color(0xFFA2A2A2), fontSize: 13, letterSpacing: 2)),
+              SizedBox(height: 5),
+              Divider(height: 2),
+              Expanded(child:_listNewMusic())
+            ],
+          ),
         ),
       ),
     );
