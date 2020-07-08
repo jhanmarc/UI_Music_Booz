@@ -1,3 +1,4 @@
+import 'package:booz/src/customs/disc_Music.dart';
 import 'package:booz/src/customs/disc_custom.dart';
 import 'package:booz/src/models/music.dart';
 import 'package:booz/src/utils/ColorsCustom.dart';
@@ -15,8 +16,8 @@ class _SongsListPageState extends State<SongsListPage> {
   List<String> _options = [
       "Música",
       "Artista",
-      "Album",
-      "Genero",
+      "Álbum",
+      "Género",
       "PlayList",
   ];
 
@@ -53,7 +54,8 @@ class _SongsListPageState extends State<SongsListPage> {
     final styleTitle = TextStyle(
         fontWeight: FontWeight.w600, fontFamily: 'Poppins', fontSize: 35.0);
       
-    
+    final styleTitleSong = TextStyle(fontWeight: FontWeight.w600, fontFamily: 'Poppins', fontSize: 13.0);
+    final styleArtista = TextStyle(fontFamily: 'Poppins', fontSize: 11.0);
     
 
     final double mediaQueryH = MediaQuery.of(context).size.height;
@@ -152,9 +154,24 @@ class _SongsListPageState extends State<SongsListPage> {
               
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                iconsBar(context, Icons.menu, 'music'),
+                Expanded(child: iconsBar(context, Icons.menu, 'optionsMenu')),
+                Padding(
+                  padding: EdgeInsets.only(right: 35, left: 50),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Somewhere I Belong", style: styleTitleSong),
+                      Text("Linkin Park - 3:50", style: styleArtista)
+                    ],
+                  ),
+                ),
+                Container(
+                      width: mediaQueryW * 0.2,
+                      child: DiscMusic(),
+                ),
               ],
             ),
           ),
@@ -167,55 +184,18 @@ class _SongsListPageState extends State<SongsListPage> {
     return ListView.builder(
         itemCount: listNext.length,
         itemBuilder: (BuildContext context, int index) {
-
-          return _itemMusic(listNext[index]);
-          // return Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: <Widget>[
-          //     Padding(
-          //       padding: EdgeInsets.only(bottom: 18),
-          //       child: Row(
-          //         children: <Widget>[
-          //           // CircleAvatar(
-          //           //   radius: 29,
-          //           //   backgroundImage: AssetImage(listNext[index].imageUrl),
-          //           // ),
-
-          //           // DiscCuston(),
-          //           _itemMusic()
-          //           // SizedBox(width: 18),
-          //           // Column(
-          //           //   crossAxisAlignment: CrossAxisAlignment.start,
-          //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           //   children: <Widget>[
-          //           //     Container(
-          //           //         width: 140,
-          //           //         child: Column(
-          //           //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           //           children: <Widget>[
-          //           //             Text(listNext[index].cancion,
-          //           //                 style: TextStyle(
-          //           //                     fontSize: 15, letterSpacing: 0.5)),
-          //           //             Text(
-          //           //                 '${listNext[index].artista} • ${listNext[index].tiempo}',
-          //           //                 style: TextStyle(
-          //           //                     fontSize: 13,
-          //           //                     color: Color(0xFFA2A2A2),
-          //           //                     letterSpacing: 0.8)),
-          //           //           ],
-          //           //         ))
-          //           //   ],
-          //           // ),
-          //           // SizedBox(width: 42),
-          //           // IconButton(
-          //           //   icon: Icon(FontAwesomeIcons.play, size: 20),
-          //           //   onPressed: () {},
-          //           // )
-          //         ],
-          //       ),
-          //     )
-          //   ],
-          // );
+          final listMusic = listNext[index];
+          if(listMusic != null){
+              return _itemMusic(listMusic);
+          }else{
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(ColorsCustom.Rosado),
+                strokeWidth: 2.5,
+                backgroundColor: ColorsCustom.BlueBlackCont,
+              ),
+            );
+          }
         },
       );
   }
@@ -225,41 +205,45 @@ class _SongsListPageState extends State<SongsListPage> {
     final styleTitleSong = TextStyle(fontWeight: FontWeight.w600, fontFamily: 'Poppins', fontSize: 13.0);
     final styleArtista = TextStyle(fontFamily: 'Poppins', fontSize: 11.0);
 
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: Container(
-        height: 65,
-        // color: ColorsCustom.RosadoLigth,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 30),
-              child: DiscCuston(),
-            ),
-            SizedBox(width: 5),
-            Container(
-              width: 230,
-              // color: ColorsCustom.Gris,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                    Container(
-                      width: 220,
-                      child: Text('${listNext.cancion}', style: styleTitleSong, maxLines: 1),
-                    ),
-                    // SizedBox(height: 2),
-                    Container(
-                      width: 180,
-                      child: Text('${listNext.artista} - ${listNext.tiempo} ', style: styleArtista, maxLines: 1),
-                    )
-                ],
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'play'),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: Container(
+          height: 65,
+          // color: ColorsCustom.RosadoLigth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: DiscCuston(),
               ),
-            ),
-            iconsBar(context, Icons.more_vert, 'play'),
-          ],
+              // DiscCuston(),
+              SizedBox(width: 5),
+              Container(
+                width: 230,
+                // color: ColorsCustom.Gris,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                      Container(
+                        width: 220,
+                        child: Text('${listNext.cancion}', style: styleTitleSong, maxLines: 1),
+                      ),
+                      // SizedBox(height: 2),
+                      Container(
+                        width: 180,
+                        child: Text('${listNext.artista} - ${listNext.tiempo} ', style: styleArtista, maxLines: 1),
+                      )
+                  ],
+                ),
+              ),
+              iconsBar(context, Icons.more_vert, 'play'),
+            ],
+          ),
         ),
       ),
     );

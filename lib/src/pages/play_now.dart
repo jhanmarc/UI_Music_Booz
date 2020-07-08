@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:booz/src/models/music.dart';
@@ -16,6 +17,12 @@ class PlayNowPage extends StatefulWidget {
 class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStateMixin {
   AnimationController playPauseController;
   Animation<double> rotation;
+
+  double _timeBar = 100;
+  double _timeMusic = 3.50*60;
+  double _rest;
+  Timer timer;
+  double timeCircular;
   
   bool isSongPlay = false;
   bool icono = true;
@@ -29,23 +36,38 @@ class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStat
   }
 
   playSon() {
+    
     setState(() {
+        _rest = 100/_timeMusic;
         if (isSongPlay) {
         playPauseController.stop();
         icono = true;
-        
+        timer.cancel();
       } else {
         playPauseController.repeat();  
-        icono = false;  
+        icono = false;
+        timer = Timer.periodic(new Duration(seconds: 1), (timer) {
+           setState(() {
+              var desc = _timeBar-_rest;
+              _timeBar = desc;
+              if(_timeBar <= 0) _timeBar = 100;
+           });
+        });
       }
       isSongPlay = !isSongPlay;
     });
   }
 
+  // timeSong(){
+  //   Timer(new Duration(seconds: 1), () {
+  //       debugPrint("Print after 1 seconds");
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
 
-    final double mediaQueryW = MediaQuery.of(context).size.width;
+    // final double mediaQueryW = MediaQuery.of(context).size.width;
 
     return Scaffold(
         backgroundColor: Color(0xFF373C42),
@@ -215,7 +237,7 @@ class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStat
     return SleekCircularSlider(
       min: 0,
       max: 100,
-      initialValue: 100,
+      initialValue: _timeBar,
       onChange: (value) {},
       onChangeEnd: (value) {},
       onChangeStart: (value) {},

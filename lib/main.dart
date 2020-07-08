@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      initialRoute: 'music',
+      initialRoute: 'play',
       title: 'Flutter Demo',
       routes: {
         'home' :  (BuildContext context) => HomePage(),
