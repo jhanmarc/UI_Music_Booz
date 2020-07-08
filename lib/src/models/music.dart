@@ -24,7 +24,7 @@ final Music somewhere =
           artista: "Linkin Park",
           tiempo: 3.33,
           imageUrl: 'assets/images/oneMore.jpg',
-          imageAlbumUrl: 'assets/images/linkinPark.jpg'
+          imageAlbumUrl: 'assets/images/oneMore.jpg'
     );
 final Music nobody =
     Music(id: 1, cancion: 'Nobody Can Sava Sava', 
@@ -38,7 +38,7 @@ final Music goodBye =
           artista: "Linkin Park,Pusha T, Stormzy",
           tiempo: 3.31,
           imageUrl: 'assets/images/oneMore.jpg',
-          imageAlbumUrl: 'assets/images/linkinPark.jpg'
+          imageAlbumUrl: 'assets/images/oneMore.jpg'
     );
 
 final Music talking =
@@ -56,9 +56,53 @@ final Music oneMore =
           imageUrl: 'assets/images/oneMore.jpg',
           imageAlbumUrl: 'assets/images/linkinPark.jpg'
     );
+  
+final Music somewhere2 =
+    Music(id: 0, cancion: 'Somewhere I Belong', 
+          artista: "Linkin Park",
+          tiempo: 3.33,
+          imageUrl: 'assets/images/oneMore.jpg',
+          imageAlbumUrl: 'assets/images/oneMore.jpg'
+    );
+final Music nobody2 =
+    Music(id: 1, cancion: 'Nobody Can Sava Sava', 
+          artista: "Linkin Park",
+          tiempo: 3.45,
+          imageUrl: 'assets/images/oneMore.jpg',
+          imageAlbumUrl: 'assets/images/linkinPark.jpg'
+    );
+final Music goodBye2 =
+    Music(id: 2, cancion: 'Good GoodBye(feat.Pusha T and Stormzy)', 
+          artista: "Linkin Park,Pusha T, Stormzy",
+          tiempo: 3.31,
+          imageUrl: 'assets/images/oneMore.jpg',
+          imageAlbumUrl: 'assets/images/oneMore.jpg'
+    );
+
+final Music talking2 =
+    Music(id: 3, cancion: 'Talkinf to Myself', 
+          artista: "Linkin Park",
+          tiempo: 3.40,
+          imageUrl: 'assets/images/oneMore.jpg',
+          imageAlbumUrl: 'assets/images/oneMore.jpg'
+    );
+
+final Music oneMore2 =
+    Music(id: 4, cancion: 'One More Light', 
+          artista: "Linkin Park",
+          tiempo: 4.15,
+          imageUrl: 'assets/images/oneMore.jpg',
+          imageAlbumUrl: 'assets/images/linkinPark.jpg'
+    );
 
 //REPRODUCTOR
 List<Music> play = [somewhere];
 
 // UP NEXT
-List<Music> listNext = [nobody, goodBye,talking,oneMore];
+List<Music> listNext = [
+  nobody, goodBye,talking, oneMore,
+  nobody2, goodBye2,talking2,oneMore2,
+  talking, nobody2, oneMore, goodBye2,
+  oneMore, goodBye2, nobody2, goodBye2,
+  oneMore, goodBye2, nobody2, goodBye2,
+];

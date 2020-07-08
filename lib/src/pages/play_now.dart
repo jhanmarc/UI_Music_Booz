@@ -62,7 +62,7 @@ class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStat
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, 'home'),
+              onTap: () => Navigator.pushNamed(context, 'music'),
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Color(0xFFA2A2A2),
@@ -345,5 +345,9 @@ class _PlayNowPageState extends State<PlayNowPage> with SingleTickerProviderStat
         },
       ),
     );
+  }
+
+  Widget itemMusic(){
+    
   }
 }
